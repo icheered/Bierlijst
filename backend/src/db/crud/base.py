@@ -15,11 +15,11 @@ class CRUDBase:
         return self.table.get(where("id") == str(id))
 
     def get_multi(self, query: dict):
-        # use fragment: find all documents that match this dict
         return self.table.search(Query().fragment(query))
 
     def create(self, obj: dict):
-        obj["id"] = str(uuid4())
+        if "id" not in obj:
+            obj["id"] = str(uuid4())
         self.table.insert(obj)
         return obj
 

@@ -29,5 +29,33 @@ class CRUDPeople(CRUDBase):
             super().delete(query)
         return retlist
 
+    def apply_transaction(self, user: dict, transaction: dict):
+        if transaction["itemid"] not in user["balance"]:
+            user["balance"][transaction["itemid"]] = transaction["change"].copy()
+            return user
+
+        if "container" in transaction["change"]:
+            if "container" not in user["balance"][transaction["itemid"]]:
+                user["balance"][transaction["itemid"]]["container"] = transaction[
+                    "change"
+                ]["container"].copy()
+            else:
+                user["balance"][transaction["itemid"]]["container"] = (
+                    user["balance"][transaction["itemid"]]["container"]
+                    + transaction["change"]["container"]
+                )
+
+        if "consumable" in transaction["change"]:
+            if "consumable" not in user["balance"][transaction["itemid"]]:
+                user["balance"][transaction["itemid"]]["consumable"] = transaction[
+                    "change"
+                ]["consumable"].copy()
+            else:
+                user["balance"][transaction["itemid"]]["consumable"] = (
+                    user["balance"][transaction["itemid"]]["consumable"]
+                    + transaction["change"]["consumable"]
+                )
+        return user
+
 
 people = CRUDPeople(table="people")

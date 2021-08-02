@@ -41,17 +41,19 @@ def update_person(
             detail="This person could not be found",
         )
     current_person = current_person[0]
-    user_in = schemas.PersonUpdate(**person.dict())
-    if user_in.name is None:
-        delattr(user_in, "name")
-    if user_in.color is None:
-        delattr(user_in, "color")
-    if user_in.balance is None:
-        delattr(user_in, "balance")
-    if user_in.is_active is None:
-        delattr(user_in, "is_active")
-    user_in = user_in.dict()
-    user_in["userid"] = current_user["id"]
+    user_in = {
+        "userid": current_user["id"],
+        "id": person.id,
+    }
+
+    if person.name is not None:
+        user_in["name"] = person.name
+    if person.color is not None:
+        user_in["color"] = person.color
+    if person.balance is not None:
+        user_in["balance"] = person.balance
+    if person.is_active is not None:
+        user_in["is_active"] = person.is_active
     return crud.people.update(db_obj=current_person, obj_in=user_in)
 
 

@@ -17,12 +17,13 @@ class PersonCreate(PersonBase):
     name: str
 
 
+# Properties to receive via API on update
 class PersonUpdate(PersonBase):
+    id: str
     name: Optional[str] = None
     color: Optional[str] = None
     is_active: Optional[bool] = None
     balance: Optional[dict] = None
-    id: Optional[str]
 
 
 # Additional properties stored in DB
