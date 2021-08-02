@@ -29,7 +29,7 @@ def add_item(
         id=str(uuid4()),
         userid=current_user["id"],
     )
-    return crud.item.create(obj=new_item.dict())
+    return crud.item.create(obj=new_item.dict(exclude_unset=True))
 
 
 @router.put("/")

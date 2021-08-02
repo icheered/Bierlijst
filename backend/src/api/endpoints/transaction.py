@@ -1,3 +1,4 @@
+import time
 from copy import deepcopy
 from typing import Optional
 from uuid import UUID, uuid4
@@ -40,11 +41,18 @@ def add_transaction(
 
     new_transaction = schemas.TransactionInDB(
         id=str(uuid4()),
+        timestamp=int(time.time()),
         userid=current_user["id"],
         change=transaction.change,
         personid=transaction.personid,
         itemid=transaction.itemid,
-    ).dict()
+        is_active=transaction.is_active if hasattr(transaction, "is_active") else True,
+    ).dict(exclude_unset=True)
+    if not new_transaction["change"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid transaction",
+        )
 
     new_person = crud.people.apply_transaction(
         user=deepcopy(old_person), transaction=new_transaction

@@ -5,18 +5,23 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
+class Change(BaseModel):
+    container: Optional[int]
+    consumable: Optional[int]
+
+
 class TransactionBase(BaseModel):
     timestamp: Optional[int] = int(time.time())
     is_active: Optional[bool] = True
     itemid: Optional[str] = None
     personid: Optional[str] = None
-    change: Optional[dict] = {}
+    change: Optional[Change]
 
 
 class TransactionCreate(TransactionBase):
     itemid: str
     personid: str
-    change: dict
+    change: Change
 
     # change = {
     #     "container": 1,
