@@ -4,3 +4,5 @@ __pycache__
 notes.md
 __backend
 db.json
+test.py
+node_modules/

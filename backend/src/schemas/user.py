@@ -8,6 +8,7 @@ class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     full_name: Optional[str] = None
     is_active: Optional[bool] = True
+    is_verified: Optional[bool] = False
     is_premium: Optional[bool] = False
     username: Optional[str] = None
 

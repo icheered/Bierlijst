@@ -39,6 +39,9 @@ class CRUDUser(CRUDBase):
     def is_active(self, user: UserInDB) -> bool:
         return user["is_active"]
 
+    def is_verified(self, user: UserInDB) -> bool:
+        return user["is_verified"]
+
     def update(self, db_obj: dict, obj_in: Union[schemas.UserUpdate, Dict[str, Any]]):
         if isinstance(obj_in, dict):
             update_data = obj_in

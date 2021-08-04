@@ -25,6 +25,8 @@ def login_access_token(
         raise HTTPException(status_code=400, detail="Incorrect email or password")
     elif not crud.user.is_active(user):
         raise HTTPException(status_code=400, detail="Inactive user")
+    elif not crud.user.is_verified(user):
+        raise HTTPException(status_code=400, detail="Email not verified")
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
     return {
