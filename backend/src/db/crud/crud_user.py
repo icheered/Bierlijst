@@ -24,7 +24,7 @@ class CRUDUser(CRUDBase):
             username=obj.username,
             hashed_password=get_password_hash(obj.password),
         )
-        return super().create(obj=db_obj.dict(exclude_unset=True))
+        return super().create(obj=db_obj.dict())
 
     def authenticate(self, username: str, password: str):
         user = self.get_by_email(email=username)
