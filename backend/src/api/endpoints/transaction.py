@@ -47,7 +47,7 @@ def add_transaction(
         personid=transaction.personid,
         itemid=transaction.itemid,
         is_active=transaction.is_active if hasattr(transaction, "is_active") else True,
-    ).dict(exclude_unset=True)
+    ).dict(exclude_none=True)
     if not new_transaction["change"]:
         raise HTTPException(
             status_code=400,

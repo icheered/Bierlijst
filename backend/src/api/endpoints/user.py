@@ -11,7 +11,7 @@ from src.utils.config import settings
 router = APIRouter()
 
 
-@router.post("/open", response_model=schemas.UserBase)
+@router.post("/open", response_model=schemas.User)
 def create_user_open(
     *,
     password: str = Body(...),
@@ -45,7 +45,7 @@ def create_user_open(
     return crud.user.create(obj=user_in)
 
 
-@router.get("/me", response_model=schemas.UserBase)
+@router.get("/me", response_model=schemas.User)
 def read_user_me(
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
 ) -> Any:
@@ -55,7 +55,7 @@ def read_user_me(
     return current_user
 
 
-@router.put("/me", response_model=schemas.UserBase)
+@router.put("/me", response_model=schemas.User)
 def update_user_me(
     *,
     password: str = Body(None),
@@ -80,7 +80,7 @@ def update_user_me(
     return crud.user.update(db_obj=current_user, obj_in=user_in)
 
 
-@router.delete("/me", response_model=schemas.UserBase)
+@router.delete("/me", response_model=schemas.User)
 def delete_user_me(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),

@@ -18,6 +18,8 @@ python-multipart = "^0.0.5"
 fastapi-mail = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
+flake8 = "^3.9.2"
+black = {version = "^21.7b0", allow-prereleases = true}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -28,6 +28,8 @@
     ]
   },
   "include": [
+    "*.ts",
+    "*.vue",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",

@@ -7,9 +7,10 @@ from src.utils.config import settings
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

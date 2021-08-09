@@ -7,4 +7,4 @@ from .transaction import (
     TransactionInDB,
     TransactionUpdate,
 )
-from .user import UserBase, UserCreate, UserInDB, UserUpdate
+from .user import User, UserBase, UserCreate, UserInDB, UserUpdate

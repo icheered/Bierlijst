@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <v-app>
+      <v-main v-if="loggedIn === null">
+        <v-container class="fill-height" fluid>
+          <v-row align="center" justify="center">
+            <v-col cols="12" sm="8" md="4">
+              <div class="headline my-5">Loading...</div>
+              <v-progress-circular
+                size="100"
+                indeterminate
+                color="primary"
+              ></v-progress-circular>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+      <router-view v-else />
+    </v-app>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { readIsLoggedIn } from "@/store/main/getters";
+import { dispatchCheckLoggedIn } from "@/store/main/actions";
 
-#nav {
-  padding: 30px;
-}
+@Component
+export default class App extends Vue {
+  get loggedIn() {
+    return readIsLoggedIn(this.$store);
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+  public async created() {
+    await dispatchCheckLoggedIn(this.$store);
+  }
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>

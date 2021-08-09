@@ -18,7 +18,7 @@ class CRUDPeople(CRUDBase):
                 name=person.name,
                 color=misc.get_random_color_hex(),
             )
-            ret = super().create(obj=db_obj.dict(exclude_unset=True))
+            ret = super().create(obj=db_obj.dict())
             retlist.append(ret)
         return retlist
 

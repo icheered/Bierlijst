@@ -33,6 +33,11 @@ class UserInDBBase(UserBase):
         orm_mode = True
 
 
+class User(UserInDBBase):
+    # Create user for consistency in OpenAPI
+    pass
+
+
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str

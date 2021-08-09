@@ -46,7 +46,7 @@ class CRUDUser(CRUDBase):
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
-            update_data = obj_in.dict(exclude_unset=True)
+            update_data = obj_in.dict()
         if update_data.get("password") is not None:
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
