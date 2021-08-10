@@ -1,5 +1,5 @@
+/* eslint-disable */
 import {
-    LoginApi,
     LoginApiFactory, UserApiFactory,
 } from "@/api/api";
 import router from "@/router";
@@ -43,12 +43,11 @@ export const actions = {
             if (err.response.status === 400) {
                 commitSetLogInError(context, "Invalid email/username or password");
             } else if (err.response.status === 422) {
-                if (payload.username == "") {
+                if (payload.username === "") {
                     commitSetLogInError(context, "Please enter your username or email");
-                } else if (payload.password == "") {
+                } else if (payload.password === "") {
                     commitSetLogInError(context, "Please enter your password");
-                }
-                else {
+                } else {
                     commitSetLogInError(context, "Unexpected input.");
                 }
             } else {
@@ -79,7 +78,7 @@ export const actions = {
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
                 UserApiFactory(context.state.configuration).updateUserMeApiUserMePut(payload),
-                await new Promise((resolve, reject) => setTimeout(() => resolve(true), 500)),
+                await new Promise((resolve) => setTimeout(() => resolve(true), 500)),
             ]))[0];
             commitSetUserProfile(context, response.data);
             commitRemoveNotification(context, loadingNotification);

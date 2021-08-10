@@ -78,13 +78,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { readLoginError } from "@/store/main/getters";
 import { dispatchLogIn } from "@/store/main/actions";
-import { VBtn } from "vuetify/lib";
 
-@Component({
-  components: {
-    VBtn,
-  },
-})
+@Component
 export default class Login extends Vue {
   public username: string = "";
   public password: string = "";

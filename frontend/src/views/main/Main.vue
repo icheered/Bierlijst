@@ -7,28 +7,11 @@
       <v-app-bar-title>Bierlijst</v-app-bar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon @click.stop="switchShowNotificationsDrawer">
-        <v-badge
-          :content="unreadNotifications"
-          :value="unreadNotifications"
-          color="red"
-          overlap
-        >
-          <v-icon>notifications</v-icon>
-        </v-badge>
-      </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniDrawer"
-      v-model="showDrawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer persistent v-model="showDrawer" fixed app>
       <v-list dense nav>
-        <v-subheader v-show="!miniDrawer">Main menu</v-subheader>
+        <v-subheader>Main menu</v-subheader>
         <v-list-item to="/main/dashboard">
           <v-list-item-icon>
             <v-icon>web</v-icon>
@@ -42,7 +25,7 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-subheader v-show="!miniDrawer">Profile</v-subheader>
+        <v-subheader>Profile</v-subheader>
 
         <v-list-item to="/main/profile/view">
           <v-list-item-icon>
@@ -84,17 +67,6 @@
               <v-list-item-title>Logout</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
-          <v-list-item @click="switchMiniDrawer">
-            <v-list-item-icon>
-              <v-icon
-                v-html="miniDrawer ? 'chevron_right' : 'chevron_left'"
-              ></v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Collapse</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
         </v-list>
       </template>
     </v-navigation-drawer>
@@ -114,9 +86,15 @@ import { Vue, Component } from "vue-property-decorator";
 
 import { dispatchUserLogOut } from "@/store/main/actions";
 
+import { commitSetDashboardShowDrawer } from "@/store/main/mutations";
+
+import { readDashboardShowDrawer } from "@/store/main/getters";
+
 const routeGuardMain = async (to: any, from: any, next: any) => {
+  console.log(to.path);
+
   if (to.path === "/main") {
-    next("/main/dashboard");
+    next("/main/home");
   } else {
     next();
   }
@@ -125,7 +103,6 @@ const routeGuardMain = async (to: any, from: any, next: any) => {
 @Component
 export default class Main extends Vue {
   public unreadNotifications: number = 0;
-  private notificationUpdateHook: any | undefined = undefined;
 
   public beforeRouteEnter(to: any, from: any, next: any) {
     routeGuardMain(to, from, next);
@@ -135,8 +112,18 @@ export default class Main extends Vue {
     routeGuardMain(to, from, next);
   }
 
-  public async beforeDestroy() {
-    clearInterval(this.notificationUpdateHook);
+  get showDrawer() {
+    return readDashboardShowDrawer(this.$store);
+  }
+  set showDrawer(value: any) {
+    commitSetDashboardShowDrawer(this.$store, value);
+  }
+
+  public switchShowDrawer() {
+    commitSetDashboardShowDrawer(
+      this.$store,
+      !readDashboardShowDrawer(this.$store),
+    );
   }
 
   public async logout() {

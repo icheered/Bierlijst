@@ -10,6 +10,7 @@ const defaultState: MainState = {
     userProfile: null,
     notifications: [],
     configuration: new Configuration(),
+    dashboardShowDrawer: true,
 };
 
 export const mainModule = {

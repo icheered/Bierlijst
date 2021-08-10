@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script lang='ts'>
@@ -9,6 +11,7 @@ import { dispatchCheckLoggedIn } from "@/store/main/actions";
 import { readIsLoggedIn } from "@/store/main/getters";
 
 const startRouteGuard = async (to: any, from: any, next: any) => {
+  console.log(to.path);
   await dispatchCheckLoggedIn(store);
   if (readIsLoggedIn(store)) {
     if (to.path === "/login" || to.path === "/") {

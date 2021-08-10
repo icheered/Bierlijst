@@ -13,4 +13,6 @@ export interface MainState {
     userProfile: User | null;
     notifications: AppNotification[];
     configuration: Configuration;
+    dashboardShowDrawer: boolean;
+
 }

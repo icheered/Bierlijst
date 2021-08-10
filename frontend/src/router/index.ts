@@ -9,47 +9,26 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: () => import(/* webpackChunkName: "start" */ "@/views/main/Start.vue"),
+      component: () => import("@/views/main/Start.vue"),
       children: [
         {
           path: "login",
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
+          component: () => import("@/views/Login.vue"),
         },
         {
           path: "main",
-          component: () => import(/* webpackChunkName: "main" */ "@/views/main/Main.vue"),
-          // children: [
-          // {
-          //   path: "profile",
-          //   component: RouterComponent,
-          //   redirect: "profile/view",
-          //   children: [
-          //     {
-          //       path: "view",
-          //       component: () => import(
-          //         /* webpackChunkName: "main-profile" */ "./views/main/profile/UserProfile.vue"),
-          //     },
-          //     {
-          //       path: "edit",
-          //       component: () => import(
-          //         /* webpackChunkName: "main-profile-edit" */ "./views/main/profile/UserProfileEdit.vue"),
-          //     },
-          //     {
-          //       path: "password",
-          //       component: () => import(
-          //         "./views/main/profile/UserProfileEditPassword.vue"),
-          //     },
-          //   ],
-          // },
-          // ],
+          component: () => import("@/views/main/Main.vue"),
+          children: [
+            {
+              path: "home",
+              component: () => import("@/views/main/Home.vue"),
+            },
+          ],
+        },
+        {
+          path: "/*", redirect: "/",
         },
       ],
-    },
-    {
-      path: "/*", redirect: "/",
     },
   ],
 });
