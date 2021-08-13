@@ -4,15 +4,14 @@
       <v-main v-if="loggedIn === null">
         <v-container class="fill-height" fluid>
           <v-row align="center" justify="center">
-            busy
-            <!-- <v-col cols="12" sm="8" md="4">
+            <v-col cols="12" sm="8" md="4">
               <div class="headline my-5">Loading...</div>
               <v-progress-circular
                 size="100"
                 indeterminate
-                color="black"
+                color="primary"
               ></v-progress-circular>
-            </v-col> -->
+            </v-col>
           </v-row>
         </v-container>
       </v-main>
@@ -29,7 +28,6 @@ import { dispatchCheckLoggedIn } from "@/store/main/actions";
 @Component
 export default class App extends Vue {
   get loggedIn() {
-    console.log(readIsLoggedIn(this.$store));
     return readIsLoggedIn(this.$store);
   }
 
