@@ -1,0 +1,19 @@
+<h3>Component box</h3>
+<container>
+    <label>
+        Username:
+        <Input @type="text" @value={{this.username}} />
+    </label>
+
+    <label>
+        Password:
+        <Input @type="text" @value={{this.password}} />
+    </label>
+
+
+    <button type="button" {{on "click" this.login}}>
+        Login
+    </button>
+
+</container>
+{{yield}}
