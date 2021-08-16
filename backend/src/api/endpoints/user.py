@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
@@ -45,14 +45,14 @@ def create_user_open(
     return crud.user.create(obj=user_in)
 
 
-@router.get("/me", response_model=schemas.User)
+@router.get("/me", response_model=List[schemas.User])
 def read_user_me(
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
 ) -> Any:
     """
     Retrieve user.
     """
-    return current_user
+    return [current_user]
 
 
 @router.put("/me", response_model=schemas.User)

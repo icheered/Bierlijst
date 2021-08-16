@@ -6,3 +6,4 @@ __backend
 db.json
 test.py
 node_modules/
+ember-simple-auth/

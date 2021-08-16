@@ -1,10 +1,8 @@
 {{page-title "Main"}}
 <h2>Main</h2>
 <container>
-    <LinkTo @route="login">
-        <button type="button">
-            Log out
-        </button>
-    </LinkTo>
+    <span class="navbar-text mr-3">Signed in as {{this.sessionAccount.account.full_name}}</span>
+    <br>
+    <Logout />
 </container>
 {{outlet}}
