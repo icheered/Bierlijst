@@ -1,0 +1,10 @@
+{{page-title "Index"}}
+<h1>Beer page</h1>
+<ul>
+    {{#each this.model.people as |person|}}
+    <li>
+        <PersonCard @person={{person}} />
+    </li>
+    {{/each}}
+</ul>
+{{outlet}}

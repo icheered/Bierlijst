@@ -9,30 +9,31 @@ from src.utils import user_auth
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("", response_model=List[schemas.Person])
 def get_people(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
 ):
-    return crud.people.get_multi({"userid": current_user["id"]})
+
+    return crud.person.get_multi({"userid": current_user["id"]})
 
 
-@router.post("/")
+@router.post("")
 def add_people(
     *,
-    people: List[schemas.people.PersonCreate],
+    people: List[schemas.PersonCreate],
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
 ):
-    return crud.people.add_people(userid=current_user["id"], people=people)
+    return crud.person.add_people(userid=current_user["id"], people=people)
 
 
-@router.put("/")
+@router.put("")
 def update_person(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
     person: schemas.PersonInDB,
 ):
-    current_person = crud.people.get_multi(
+    current_person = crud.person.get_multi(
         {"id": person.id, "userid": current_user["id"]}
     )
     if not current_person:
@@ -54,13 +55,13 @@ def update_person(
         user_in["balance"] = person.balance
     if person.is_active is not None:
         user_in["is_active"] = person.is_active
-    return crud.people.update(db_obj=current_person, obj_in=user_in)
+    return crud.person.update(db_obj=current_person, obj_in=user_in)
 
 
-@router.delete("/")
+@router.delete("")
 def delete_people(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
     people: List[UUID],
 ):
-    return crud.people.delete_people(userid=current_user["id"], people=people)
+    return crud.person.delete_people(userid=current_user["id"], people=people)

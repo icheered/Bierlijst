@@ -1,5 +1,5 @@
-from .item import ItemCreate, ItemInDB, ItemUpdate
-from .people import PersonBase, PersonCreate, PersonInDB, PersonUpdate
+from .item import Item, ItemCreate, ItemInDB, ItemUpdate
+from .person import Person, PersonBase, PersonCreate, PersonInDB, PersonUpdate
 from .token import Token, TokenPayload
 from .transaction import (
     TransactionBase,

@@ -20,6 +20,10 @@ class ItemUpdate(ItemBase):
     is_active: Optional[bool] = None
 
 
+class Item(ItemBase):
+    id: str
+
+
 class ItemInDB(ItemBase):
     id: Optional[str] = None
     userid: Optional[str] = None

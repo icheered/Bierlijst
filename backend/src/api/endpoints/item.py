@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -9,7 +9,18 @@ from src.utils import user_auth
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/{itemid}", response_model=schemas.Item)
+def get_item(
+    *, current_user: schemas.UserBase = Depends(user_auth.get_current_user), itemid
+):
+    print(itemid)
+    t = crud.item.get(id=itemid)
+    print(t)
+    return t
+    # return crud.item.get_multi(query={"userid": current_user["id"]})
+
+
+@router.get("", response_model=List[schemas.Item])
 def get_items(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -17,7 +28,7 @@ def get_items(
     return crud.item.get_multi(query={"userid": current_user["id"]})
 
 
-@router.post("/")
+@router.post("")
 def add_item(
     *,
     item: schemas.ItemCreate,
@@ -32,7 +43,7 @@ def add_item(
     return crud.item.create(obj=new_item.dict())
 
 
-@router.put("/")
+@router.put("")
 def update_item(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -56,7 +67,7 @@ def update_item(
     return crud.item.update(db_obj=current_item, obj_in=item_in)
 
 
-@router.delete("/")
+@router.delete("")
 def delete_item(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),

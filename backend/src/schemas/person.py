@@ -9,7 +9,7 @@ class PersonBase(BaseModel):
     name: Optional[str] = None
     color: Optional[str] = None
     is_active: Optional[bool] = True
-    balance: Optional[dict] = {}
+    balance: Optional[list] = []
 
 
 # Properties to receive via API on creation
@@ -23,7 +23,11 @@ class PersonUpdate(PersonBase):
     name: Optional[str] = None
     color: Optional[str] = None
     is_active: Optional[bool] = None
-    balance: Optional[dict] = None
+    balance: Optional[list] = None
+
+
+class Person(PersonBase):
+    id: str
 
 
 # Additional properties stored in DB

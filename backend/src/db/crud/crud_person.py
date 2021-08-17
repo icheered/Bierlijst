@@ -7,8 +7,8 @@ from src.db.crud.base import CRUDBase
 from src.utils import misc
 
 
-class CRUDPeople(CRUDBase):
-    def add_people(self, userid: UUID, people: List[schemas.people.PersonCreate]):
+class CRUDPerson(CRUDBase):
+    def add_people(self, userid: UUID, people: List[schemas.PersonCreate]):
         # For each person, generate UUID, set USERID, generate color
         retlist = []
         for person in people:
@@ -31,38 +31,38 @@ class CRUDPeople(CRUDBase):
         return retlist
 
     def apply_transaction(self, user: dict, transaction: dict):
-        if transaction["itemid"] not in user["balance"]:
-            user["balance"][transaction["itemid"]] = copy(transaction["change"])
+        user_items = [val["id"] for val in user["balance"]]
+        if transaction["itemid"] not in user_items:
+            user["balance"].append(
+                dict(
+                    list({"id": transaction["itemid"]}.items())
+                    + list(copy(transaction["change"]).items())
+                )
+            )
             return user
+
+        item_balance = next(
+            (item for item in user["balance"] if item["id"] == transaction["itemid"])
+        )  # Not explicitly copied, REFERENCES the item balance in user["balance"]
 
         if (
             "container" in transaction["change"]
             and transaction["change"]["container"] is not None
         ):
-            if "container" not in user["balance"][transaction["itemid"]]:
-                user["balance"][transaction["itemid"]]["container"] = copy(
-                    transaction["change"]["container"]
-                )
+            if "container" not in item_balance:
+                item_balance["container"] = copy(transaction["change"]["container"])
             else:
-                user["balance"][transaction["itemid"]]["container"] = (
-                    user["balance"][transaction["itemid"]]["container"]
-                    + transaction["change"]["container"]
-                )
+                item_balance["container"] += transaction["change"]["container"]
 
         if (
             "consumable" in transaction["change"]
             and transaction["change"]["consumable"] is not None
         ):
-            if "consumable" not in user["balance"][transaction["itemid"]]:
-                user["balance"][transaction["itemid"]]["consumable"] = copy(
-                    transaction["change"]["consumable"]
-                )
+            if "consumable" not in item_balance:
+                item_balance["consumable"] = copy(transaction["change"]["consumable"])
             else:
-                user["balance"][transaction["itemid"]]["consumable"] = (
-                    user["balance"][transaction["itemid"]]["consumable"]
-                    + transaction["change"]["consumable"]
-                )
+                item_balance["consumable"] += transaction["change"]["consumable"]
         return user
 
 
-people = CRUDPeople(table="people")
+person = CRUDPerson(table="person")

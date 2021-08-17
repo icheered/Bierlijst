@@ -1,0 +1,12 @@
+<aside>
+    <div>
+        Person {{@person.name}}
+        <ul>
+            {{#each @person.balance as |item|}}
+            <li>
+                <PersonCardItem @item={{item}} />
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</aside>

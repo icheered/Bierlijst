@@ -6,9 +6,9 @@ export default Service.extend({
 
   async loadCurrentUser() {
     console.log('Loading current user');
-    let userprofile = await this.store.findAll('account')
-    let account = userprofile.objectAt(0)
+    let userprofile = await this.store.findAll('account');
+    let account = userprofile.objectAt(0);
     this.set('account', account);
-    return account
+    return account;
   },
 });

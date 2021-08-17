@@ -11,7 +11,7 @@ from src.utils import user_auth
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 def get_transactions(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -21,7 +21,7 @@ def get_transactions(
     return crud.transaction.get_multi(query={"userid": current_user["id"]})
 
 
-@router.post("/")
+@router.post("")
 def add_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -32,7 +32,7 @@ def add_transaction(
             status_code=404,
             detail="Unknown item",
         )
-    old_person = crud.people.get(id=transaction.personid)
+    old_person = crud.person.get(id=transaction.personid)
     if not old_person:
         raise HTTPException(
             status_code=404,
@@ -54,14 +54,14 @@ def add_transaction(
             detail="Invalid transaction",
         )
 
-    new_person = crud.people.apply_transaction(
+    new_person = crud.person.apply_transaction(
         user=deepcopy(old_person), transaction=new_transaction
     )
-    crud.people.update(db_obj=old_person, obj_in=new_person)
+    crud.person.update(db_obj=old_person, obj_in=new_person)
     return crud.transaction.create(obj=new_transaction)
 
 
-@router.put("/")
+@router.put("")
 def update_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -109,27 +109,27 @@ def toggle_transaction(
     }
 
     # When going from active to inactive, revert the transaction changes
-    old_person = dict(crud.people.get(id=current_transaction["personid"]))
+    old_person = dict(crud.person.get(id=current_transaction["personid"]))
     if current_transaction["is_active"]:
         c = deepcopy(current_transaction)
         if "container" in c["change"]:
             c["change"]["container"] *= -1
         if "consumable" in c["change"]:
             c["change"]["consumable"] *= -1
-        new_person = crud.people.apply_transaction(
+        new_person = crud.person.apply_transaction(
             user=deepcopy(old_person), transaction=c
         )
     if not current_transaction["is_active"]:
         c = deepcopy(current_transaction)
-        new_person = crud.people.apply_transaction(
+        new_person = crud.person.apply_transaction(
             user=deepcopy(old_person), transaction=c
         )
-    crud.people.update(db_obj=old_person, obj_in=new_person)
+    crud.person.update(db_obj=old_person, obj_in=new_person)
 
     return crud.transaction.update(db_obj=current_transaction, obj_in=transaction_in)
 
 
-@router.delete("/")
+@router.delete("")
 def delete_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -144,16 +144,16 @@ def delete_transaction(
 
     # When going from active to inactive, revert the transaction changes
     if current_transaction["is_active"]:
-        old_person = dict(crud.people.get(id=current_transaction["personid"]))
+        old_person = dict(crud.person.get(id=current_transaction["personid"]))
         c = deepcopy(current_transaction)
         if "container" in c["change"]:
             c["change"]["container"] *= -1
         if "consumable" in c["change"]:
             c["change"]["consumable"] *= -1
-        new_person = crud.people.apply_transaction(
+        new_person = crud.person.apply_transaction(
             user=deepcopy(old_person), transaction=c
         )
-        crud.people.update(db_obj=old_person, obj_in=new_person)
+        crud.person.update(db_obj=old_person, obj_in=new_person)
 
     query = {"id": str(transaction_id), "userid": current_user["id"]}
     return crud.transaction.delete(query=query)
