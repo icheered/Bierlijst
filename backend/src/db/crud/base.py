@@ -4,23 +4,29 @@ from uuid import UUID, uuid4
 from src.utils.config import settings
 from tinydb import Query, TinyDB, where
 
-db = TinyDB(settings.DB_LOCATION)
+from . import db
 
 
 class CRUDBase:
     def __init__(self, table: str):
-        self.table = db.table(table)
+        self.table = db[table]
 
     def get(self, id: UUID):
-        return self.table.get(where("id") == str(id))
+        return self.table.find_one({"id": str(id)})
 
     def get_multi(self, query: dict):
-        return self.table.search(Query().fragment(query))
+        retl = []
+        for ret in self.table.find(query):
+            retl.append(ret)
+        return retl
 
     def create(self, obj: dict):
         if "id" not in obj:
-            obj["id"] = str(uuid4())
-        self.table.insert(obj)
+            obj_id = uuid4()
+            while self.get(id=obj_id):
+                obj_id = uuid4()
+            obj["id"] = str(obj_id)
+        self.table.insert_one(obj)
         return obj
 
     def update(self, db_obj: dict, obj_in: dict):
@@ -34,11 +40,13 @@ class CRUDBase:
         Returns:
             [schema]: Updated model
         """
-        self.table.update(cond=where("id") == db_obj["id"], fields=obj_in)
+        self.table.update_one(filter=db_obj, update={"$set": obj_in})
         return obj_in
 
     def delete(self, query: dict):
-        return self.table.remove(Query().fragment(query))
+        item = self.get(id=query["id"])
+        self.table.delete_one(query)
+        return item
 
     def delete_all(self):
-        return self.table.remove()
+        return self.table.delete_many({})

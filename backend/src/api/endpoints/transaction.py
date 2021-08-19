@@ -11,7 +11,7 @@ from src.utils import user_auth
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=schemas.Transaction)
 def get_transactions(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -21,7 +21,7 @@ def get_transactions(
     return crud.transaction.get_multi(query={"userid": current_user["id"]})
 
 
-@router.post("")
+@router.post("", response_model=schemas.Transaction)
 def add_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -61,7 +61,7 @@ def add_transaction(
     return crud.transaction.create(obj=new_transaction)
 
 
-@router.put("")
+@router.put("", response_model=schemas.Transaction)
 def update_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -90,7 +90,7 @@ def update_transaction(
     return crud.transaction.update(db_obj=current_transaction, obj_in=transaction_in)
 
 
-@router.put("/toggle")
+@router.put("/toggle", response_model=schemas.Transaction)
 def toggle_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -129,7 +129,7 @@ def toggle_transaction(
     return crud.transaction.update(db_obj=current_transaction, obj_in=transaction_in)
 
 
-@router.delete("")
+@router.delete("", response_model=schemas.Transaction)
 def delete_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),

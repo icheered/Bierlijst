@@ -25,8 +25,9 @@ class CRUDPerson(CRUDBase):
     def delete_people(self, userid: UUID, people: List[UUID]):
         retlist = []
         for personID in people:
+
+            retlist.append(super().get(str(personID)))
             query = {"userid": str(userid), "id": str(personID)}
-            retlist.append(super().get_multi(query))
             super().delete(query)
         return retlist
 

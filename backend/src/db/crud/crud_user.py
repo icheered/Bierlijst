@@ -11,10 +11,10 @@ from tinydb import where
 
 class CRUDUser(CRUDBase):
     def get_by_email(self, email: EmailStr):
-        return self.table.get(where("email") == email)
+        return self.table.find_one({"email": email})
 
     def get_by_username(self, username: str):
-        return self.table.get(where("username") == username)
+        return self.table.find_one({"username": username})
 
     def create(self, obj: UserCreate):
         db_obj = UserInDB(
@@ -42,7 +42,7 @@ class CRUDUser(CRUDBase):
     def is_verified(self, user: UserInDB) -> bool:
         return user["is_verified"]
 
-    def update(self, db_obj: dict, obj_in: Union[schemas.UserUpdate, Dict[str, Any]]):
+    def update(self, db_obj, obj_in: Union[schemas.UserUpdate, Dict[str, Any]]):
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
@@ -51,6 +51,8 @@ class CRUDUser(CRUDBase):
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
+        else:
+            del update_data["password"]
         return super().update(db_obj=db_obj, obj_in=update_data)
 
 

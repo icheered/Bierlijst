@@ -28,7 +28,6 @@ def login_access_token(
     elif not crud.user.is_verified(user):
         raise HTTPException(status_code=400, detail="Email not verified")
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-
     return {
         "access_token": security.create_access_token(
             user["id"], expires_delta=access_token_expires

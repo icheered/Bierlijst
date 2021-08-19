@@ -36,6 +36,10 @@ class TransactionUpdate(TransactionBase):
     change: Optional[dict] = None
 
 
+class Transaction(TransactionBase):
+    pass
+
+
 class TransactionInDB(TransactionBase):
     id: Optional[str] = None
     userid: Optional[str] = None

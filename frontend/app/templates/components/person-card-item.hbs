@@ -1,10 +1,7 @@
-<aside ...attributes>
+<aside>
     <li>
-        Beer type: {{this.name}}
-        <ul>
-            <li>
-                Amount: {{@this.item.consumable}}
-            </li>
-        </ul>
+        <div>
+            {{this.name}}: <button type="button" {{on "click" this.decrement}}>{{@this.item.consumable}}</button>
+        </div>
     </li>
 </aside>

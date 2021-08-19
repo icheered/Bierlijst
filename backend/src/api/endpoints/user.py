@@ -67,8 +67,7 @@ def update_user_me(
     """
     Update own user.
     """
-    current_user_data = jsonable_encoder(current_user)
-    user_in = schemas.UserUpdate(**current_user_data)
+    user_in = schemas.UserUpdate(**current_user)
     if password is not None:
         user_in.password = password
     if full_name is not None:

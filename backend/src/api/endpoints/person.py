@@ -9,6 +9,13 @@ from src.utils import user_auth
 router = APIRouter()
 
 
+@router.get("/{personid}", response_model=schemas.Person)
+def get_person(
+    *, current_user: schemas.UserBase = Depends(user_auth.get_current_user), personid
+):
+    return crud.person.get(id=personid)
+
+
 @router.get("", response_model=List[schemas.Person])
 def get_people(
     *,
@@ -18,7 +25,7 @@ def get_people(
     return crud.person.get_multi({"userid": current_user["id"]})
 
 
-@router.post("")
+@router.post("", response_model=List[schemas.Person])
 def add_people(
     *,
     people: List[schemas.PersonCreate],
@@ -27,7 +34,7 @@ def add_people(
     return crud.person.add_people(userid=current_user["id"], people=people)
 
 
-@router.put("")
+@router.put("", response_model=schemas.Person)
 def update_person(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -58,7 +65,7 @@ def update_person(
     return crud.person.update(db_obj=current_person, obj_in=user_in)
 
 
-@router.delete("")
+@router.delete("", response_model=List[schemas.Person])
 def delete_people(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
