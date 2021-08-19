@@ -4,5 +4,15 @@
     <span class="navbar-text mr-3">Signed in as {{this.sessionAccount.account.full_name}}</span>
     <br>
     <Logout />
+    <button>
+        <LinkTo @route="main.index">home</LinkTo>
+    </button>
+    <button>
+        <LinkTo @route="main.settings">settings</LinkTo>
+    </button>
+    <button>
+        <LinkTo @route="main.transactions">transactions</LinkTo>
+    </button>
+
 </container>
 {{outlet}}
