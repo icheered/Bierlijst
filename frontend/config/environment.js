@@ -21,6 +21,7 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    //apiHost: 'http://192.168.5.169:8001',
     apiHost: 'http://localhost:8001',
   };
 

@@ -7,3 +7,5 @@ db.json
 test.py
 node_modules/
 ember-simple-auth/
+ember-cli-mdc/
+storybook/

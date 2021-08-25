@@ -1,0 +1,99 @@
+ember install ember-cli-mdc-animation &&
+ember install ember-cli-mdc-base &&
+ember install ember-cli-mdc-bottom-navigation &&
+ember install ember-cli-mdc-button &&
+ember install ember-cli-mdc-card &&
+ember install ember-cli-mdc-checkbox &&
+ember install ember-cli-mdc-chips &&
+ember install ember-cli-mdc-circular-progress &&
+ember install ember-cli-mdc-data-table &&
+ember install ember-cli-mdc-dialog &&
+ember install ember-cli-mdc-dom &&
+ember install ember-cli-mdc-drawer &&
+ember install ember-cli-mdc-elevation &&
+ember install ember-cli-mdc-fab &&
+ember install ember-cli-mdc-floating-label &&
+ember install ember-cli-mdc-form-field &&
+ember install ember-cli-mdc-form &&
+ember install ember-cli-mdc-icon-button &&
+ember install ember-cli-mdc-icon &&
+ember install ember-cli-mdc-image-list &&
+ember install ember-cli-mdc-layout-grid &&
+ember install ember-cli-mdc-layout &&
+ember install ember-cli-mdc-line-ripple &&
+ember install ember-cli-mdc-linear-progress &&
+ember install ember-cli-mdc-list &&
+ember install ember-cli-mdc-menu-surface &&
+ember install ember-cli-mdc-menu &&
+ember install ember-cli-mdc-notched-outline &&
+ember install ember-cli-mdc-progress-indicator &&
+ember install ember-cli-mdc-radio &&
+ember install ember-cli-mdc-ripple &&
+ember install ember-cli-mdc-rtl &&
+ember install ember-cli-mdc-sass &&
+ember install ember-cli-mdc-select &&
+ember install ember-cli-mdc-shape &&
+ember install ember-cli-mdc-slider &&
+ember install ember-cli-mdc-snackbar &&
+ember install ember-cli-mdc-switch &&
+ember install ember-cli-mdc-tab-bar &&
+ember install ember-cli-mdc-tab-indicator &&
+ember install ember-cli-mdc-tab-scroller &&
+ember install ember-cli-mdc-tab &&
+ember install ember-cli-mdc-tabs &&
+ember install ember-cli-mdc-textfield &&
+ember install ember-cli-mdc-theme &&
+ember install ember-cli-mdc-top-app-bar &&
+ember install ember-cli-mdc-touch-target &&
+ember install ember-cli-mdc-typography &&
+ember install ember-cli-mdc-utils
+    "ember-cli-mdc": "^2.0.0-octane.13",
+    "ember-cli-mdc-animation": "^2.0.19",
+    "ember-cli-mdc-base": "^2.0.19",
+    "ember-cli-mdc-bottom-navigation": "^2.3.10",
+    "ember-cli-mdc-button": "^2.3.10",
+    "ember-cli-mdc-card": "^2.3.10",
+    "ember-cli-mdc-checkbox": "^2.3.4",
+    "ember-cli-mdc-chips": "^2.3.10",
+    "ember-cli-mdc-circular-progress": "^2.3.4",
+    "ember-cli-mdc-data-table": "^2.3.21",
+    "ember-cli-mdc-dialog": "^2.3.10",
+    "ember-cli-mdc-dom": "^2.0.19",
+    "ember-cli-mdc-drawer": "^2.3.10",
+    "ember-cli-mdc-elevation": "^2.3.4",
+    "ember-cli-mdc-fab": "^2.3.10",
+    "ember-cli-mdc-floating-label": "^2.3.4",
+    "ember-cli-mdc-form": "^2.0.19",
+    "ember-cli-mdc-form-field": "^2.3.4",
+    "ember-cli-mdc-htmlbars": "^2.3.4",
+    "ember-cli-mdc-icon": "^2.3.10",
+    "ember-cli-mdc-icon-button": "^2.3.10",
+    "ember-cli-mdc-image-list": "^2.3.4",
+    "ember-cli-mdc-layout": "^2.0.19",
+    "ember-cli-mdc-layout-grid": "^2.0.22",
+    "ember-cli-mdc-line-ripple": "^2.3.4",
+    "ember-cli-mdc-linear-progress": "^2.3.4",
+    "ember-cli-mdc-list": "^2.3.10",
+    "ember-cli-mdc-menu": "^2.3.17",
+    "ember-cli-mdc-menu-surface": "^2.3.17",
+    "ember-cli-mdc-notched-outline": "^2.3.4",
+    "ember-cli-mdc-progress-indicator": "^2.0.19",
+    "ember-cli-mdc-radio": "^2.3.4",
+    "ember-cli-mdc-ripple": "^2.3.4",
+    "ember-cli-mdc-rtl": "^2.0.19",
+    "ember-cli-mdc-sass": "^2.0.19",
+    "ember-cli-mdc-select": "^2.3.22",
+    "ember-cli-mdc-shape": "^2.0.19",
+    "ember-cli-mdc-slider": "^2.3.4",
+    "ember-cli-mdc-snackbar": "^2.3.10",
+    "ember-cli-mdc-stepper": "^2.0.0-octane.46",
+    "ember-cli-mdc-switch": "^2.3.4",
+    "ember-cli-mdc-tab": "^2.3.10",
+    "ember-cli-mdc-tab-bar": "^2.3.10",
+    "ember-cli-mdc-tab-indicator": "^2.3.10",
+    "ember-cli-mdc-tab-scroller": "^2.3.10",
+    "ember-cli-mdc-tabs": "^2.3.10",
+    "ember-cli-mdc-textfield": "^2.3.16",
+    "ember-cli-mdc-theme": "^2.3.4",
+    "ember-cli-mdc-top-app-bar": "^2.3.10",
+    "ember-cli-mdc-typography": "^2.0.19",

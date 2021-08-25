@@ -1,18 +1,37 @@
 {{page-title "Main"}}
-<h2>Main</h2>
-<container>
-    <span class="navbar-text mr-3">Signed in as {{this.sessionAccount.account.full_name}}</span>
-    <br>
-    <Logout />
-    <button>
-        <LinkTo @route="main.index">home</LinkTo>
-    </button>
-    <button>
-        <LinkTo @route="main.settings">settings</LinkTo>
-    </button>
-    <button>
-        <LinkTo @route="main.transactions">transactions</LinkTo>
-    </button>
+{{!-- <h2>Main</h2>
+<span class="navbar-text mr-3">Signed in as {{this.sessionAccount.account.full_name}}</span> --}}
 
+{{!--
+<Topbar />
+<Sidebar /> --}}
+{{!-- <MdcDrawerAppContent>
+    <MainContent>
+        {{outlet}}
+    </MainContent>
+</MdcDrawerAppContent> --}}
+<container class="mainheader row" style="content-align: center">
+    <div class="row">
+        <div class="col-1" />
+        <div class="col-md-1 col-1 menudropdown">
+            <DropdownMenu style="float: right; " />
+        </div>
+        <div class="col-md-8 col-8">
+            <LinkTo @route="main" class="mainbanner">
+                <div class="mainbanner">
+                    <h1>Huis: {{this.getfullname}}</h1>
+                </div>
+            </LinkTo>
+
+        </div>
+        <div class="col-md-1 col-1 cratesbutton">
+            <LinkTo @route="main.settings">
+                <MdcFab @icon="widgets" />
+            </LinkTo>
+        </div>
+        <div class="col-1" />
+
+
+    </div>
 </container>
 {{outlet}}

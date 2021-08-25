@@ -5,8 +5,6 @@ export default class IndexRoute extends Route {
   @service session;
 
   beforeModel(transition) {
-    this.session.requireAuthentication(transition, () =>
-      this.transitionToExternal('login')
-    );
+    this.session.requireAuthentication(transition, 'login');
   }
 }

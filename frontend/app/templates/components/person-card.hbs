@@ -1,12 +1,14 @@
-<aside>
-    <div>
-        <p style="color:{{@person.color}}">Person {{@person.name}}</p>
-        <ul>
-            {{#each @person.balance as |item|}}
-            <li>
-                <PersonCardItem @item={{item}} @personid={{@person.id}} />
-            </li>
-            {{/each}}
-        </ul>
+<div style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row;">
+    <p class="col align-self-center">Person {{@person.name}}</p>
+    {{#each @person.balance as |item|}}
+    <div style="padding: 5px;">
+        <button type=" button" {{on "click" (fn this.decrement @person.id item.id @person.name)}}>
+            <h1>{{item.consumable}}</h1>
+            <p>{{function-helper this this.getitemname item.id}}</p>
+        </button>
     </div>
-</aside>
+    {{/each}}
+</div>
+
+{{!--
+<PersonCardItem @item={{item}} @personid={{@person.id}} @personname={{@person.name}} /> --}}

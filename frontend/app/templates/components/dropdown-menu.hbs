@@ -1,0 +1,46 @@
+<div class="toolbar" style="position: relative" role="toolbar">
+    <MdcFab @icon="menu" id="menu-button" {{on "click" this.openMenu}} />
+
+    <MdcMenu @open={{this.open}} @position="fixed" @anchorCorner="bottomLeft" @anchorElement="#menu-button">
+        <MdcMenuList>
+
+            <MdcMenuItemLinkTo @route="main">
+                <MdcIcon @icon="sports_bar" />
+                <MdcListItemText>&nbsp;&nbsp;&nbsp;Home</MdcListItemText>
+            </MdcMenuItemLinkTo>
+
+            <MdcMenuItemLinkTo @route="main.settings">
+                <MdcIcon @icon="settings" />
+                <MdcListItemText>&nbsp;&nbsp;&nbsp;Settings</MdcListItemText>
+            </MdcMenuItemLinkTo>
+
+            <MdcMenuItemLinkTo @route="main.settings">
+                <MdcIcon @icon="widgets" />
+                <MdcListItemText>&nbsp;&nbsp;&nbsp;Crates</MdcListItemText>
+            </MdcMenuItemLinkTo>
+
+            <MdcMenuItemLinkTo @route="main.transactions">
+                <MdcIcon @icon="history" />
+                <MdcListItemText>&nbsp;&nbsp;&nbsp;Transactions</MdcListItemText>
+            </MdcMenuItemLinkTo>
+
+            <MdcListDivider />
+
+            <MdcMenuItem {{on "click" this.logout}}>
+                <MdcIcon @icon="logout" />
+                <MdcListItemText>&nbsp;&nbsp;&nbsp;Log out</MdcListItemText>
+            </MdcMenuItem>
+
+
+        </MdcMenuList>
+    </MdcMenu>
+
+</div>
+
+{{!-- <MdcDropdownMenu @anchorCorner="bottomLeft">
+    <MdcMenuList>
+        <MdcListItem>First Item</MdcListItem>
+        <MdcListItem>Second Item</MdcListItem>
+        <MdcListItem>Third Item</MdcListItem>
+    </MdcMenuList>
+</MdcDropdownMenu> --}}
