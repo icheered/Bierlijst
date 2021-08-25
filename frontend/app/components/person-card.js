@@ -39,6 +39,22 @@ export default class PersonCard extends Component {
         });
     }
 
+    hasSingleActiveItem(personid) {
+        let balance = this.store.peekRecord('person', personid).balance;
+        let trueCounter = 0;
+        for (var i = 0; i < balance.length; i++) {
+            if (balance.objectAt(i).is_active) { trueCounter += 1; }
+        }
+        return (trueCounter == 1 ? true : false)
+    }
+
+    getSingleActiveItem(personid) {
+        let balance = this.store.peekRecord('person', personid).balance;
+        for (var i = 0; i < balance.length; i++) {
+            if (balance.objectAt(i).is_active) { return balance.objectAt(i).id }
+        }
+    }
+
     @action
     async decrement(personid, itemid, personname) {
         console.log('Decrementing');
