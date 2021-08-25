@@ -90,20 +90,20 @@ def update_transaction(
     return crud.transaction.update(db_obj=current_transaction, obj_in=transaction_in)
 
 
-@router.put("/toggle", response_model=schemas.Transaction)
+@router.put("/{transactionid}", response_model=schemas.Transaction)
 def toggle_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    transaction_id: UUID,
+    transactionid: UUID,
 ):
-    current_transaction = dict(crud.transaction.get(id=str(transaction_id)))
+    current_transaction = dict(crud.transaction.get(id=str(transactionid)))
     if not current_transaction:
         raise HTTPException(
             status_code=404,
             detail="This transaction could not be found",
         )
     transaction_in = {
-        "id": str(transaction_id),
+        "id": str(transactionid),
         "userid": current_user["id"],
         "is_active": not current_transaction["is_active"],
     }

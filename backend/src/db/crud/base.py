@@ -2,7 +2,6 @@ from typing import Any
 from uuid import UUID, uuid4
 
 from src.utils.config import settings
-from tinydb import Query, TinyDB, where
 
 from . import db
 

@@ -25,7 +25,6 @@ class CRUDPerson(CRUDBase):
     def delete_people(self, userid: UUID, people: List[UUID]):
         retlist = []
         for personID in people:
-
             retlist.append(super().get(str(personID)))
             query = {"userid": str(userid), "id": str(personID)}
             super().delete(query)
@@ -64,6 +63,36 @@ class CRUDPerson(CRUDBase):
             else:
                 item_balance["consumable"] += transaction["change"]["consumable"]
         return user
+
+    def add_item(self, id: str, userid: str, enabled: bool):
+        """
+        Add an item to every person's balance
+
+        :param id: Item ID
+        :param userid: User ID to determine which people should be updated
+        :param enabled: Whether to enable the item for the person
+        """
+        itemdict = {"id": id, "container": 0, "consumable": 0, "is_active": enabled}
+        self.table.update_many({"userid": userid}, {"$push": {"balance": itemdict}})
+
+    def set_item_active(
+        self, itemid: str, userid: str, is_active: bool, personid: str = None
+    ):
+        if personid is None:
+            self.table.update_many(
+                {"userid": userid, "balance.id": itemid},
+                {"$set": {"balance.$.is_active": is_active}},
+            )
+        else:
+            self.table.update_one(
+                {"userid": userid, "id": personid, "balance.id": itemid},
+                {"$set": {"balance.$.is_active": is_active}},
+            )
+
+    def delete_item(self, itemid: str, userid: str):
+        self.table.update_many(
+            {"userid": userid}, {"$pull": {"balance": {"id": itemid}}}
+        )
 
 
 person = CRUDPerson(table="person")

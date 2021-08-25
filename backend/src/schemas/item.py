@@ -12,6 +12,7 @@ class ItemBase(BaseModel):
 class ItemCreate(ItemBase):
     name: str
     container_size: int = 24
+    enable_for_everyone: Optional[bool] = True
 
 
 class ItemUpdate(ItemBase):

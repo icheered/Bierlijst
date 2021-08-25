@@ -36,6 +36,9 @@ def add_item(
         id=str(uuid4()),
         userid=current_user["id"],
     )
+    crud.person.add_item(
+        id=new_item.id, userid=current_user["id"], enabled=item.enable_for_everyone
+    )
     return crud.item.create(obj=new_item.dict())
 
 
@@ -63,11 +66,40 @@ def update_item(
     return crud.item.update(db_obj=current_item, obj_in=item_in)
 
 
-@router.delete("", response_model=schemas.Item)
+@router.put("/{itemid}", response_model=schemas.Item)
+def toggle_item_active(
+    *,
+    current_user: schemas.UserBase = Depends(user_auth.get_current_user),
+    itemid: UUID,
+):
+    current_item = crud.item.get(id=itemid)
+    if not current_item:
+        raise HTTPException(
+            status_code=404,
+            detail="This item could not be found",
+        )
+    if current_item["is_active"]:
+        crud.person.set_item_active(
+            itemid=str(itemid), userid=current_user["id"], is_active=False
+        )
+
+    item_in = {"id": str(itemid), "userid": current_user["id"]}
+    item_in["is_active"] = not current_item["is_active"]
+    return crud.item.update(db_obj=current_item, obj_in=item_in)
+
+
+@router.delete("/{itemid}", response_model=schemas.Item)
 def delete_item(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    item_id: UUID,
+    itemid: UUID,
 ):
-    query = {"id": str(item_id), "userid": current_user["id"]}
+    current_item = crud.item.get(id=itemid)
+    if not current_item:
+        raise HTTPException(
+            status_code=404,
+            detail="This item could not be found",
+        )
+    crud.person.delete_item(itemid=str(itemid), userid=current_user["id"])
+    query = {"id": str(itemid), "userid": current_user["id"]}
     return crud.item.delete(query=query)
