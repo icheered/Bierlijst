@@ -5,7 +5,7 @@
     {{#each @person.balance as |item|}}
     {{#if item.is_active}}
     <div style="padding: 5px;">
-        <button>
+        <button type="button">
             <h1>{{item.consumable}}</h1>
             <p>{{function-helper this this.getitemname item.id}}</p>
         </button>
@@ -20,7 +20,7 @@
     {{#each @person.balance as |item|}}
     {{#if item.is_active}}
     <div style="padding: 5px;">
-        <button type=" button" {{on "click" (fn this.decrement @person.id item.id @person.name)}}>
+        <button type="button" {{on "click" (fn this.decrement @person.id item.id @person.name)}}>
             <h1>{{item.consumable}}</h1>
             <p>{{function-helper this this.getitemname item.id}}</p>
         </button>

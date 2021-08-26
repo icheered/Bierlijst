@@ -1,15 +1,4 @@
 {{page-title "Main"}}
-{{!-- <h2>Main</h2>
-<span class="navbar-text mr-3">Signed in as {{this.sessionAccount.account.full_name}}</span> --}}
-
-{{!--
-<Topbar />
-<Sidebar /> --}}
-{{!-- <MdcDrawerAppContent>
-    <MainContent>
-        {{outlet}}
-    </MainContent>
-</MdcDrawerAppContent> --}}
 <container class="mainheader row" style="content-align: center">
     <div class="row">
         <div class="col-1" />
@@ -25,7 +14,7 @@
 
         </div>
         <div class="col-md-1 col-1 cratesbutton">
-            <LinkTo @route="main.settings">
+            <LinkTo @route="main.containers">
                 <MdcFab @icon="widgets" />
             </LinkTo>
         </div>

@@ -1,0 +1,12 @@
+<div style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row;">
+    <p class="col align-self-center">Person {{@person.name}}</p>
+    {{#each @person.balance as |item|}}
+    {{#if item.is_active}}
+    <div style="padding: 5px;">
+        <ContainerDialog @containers={{item.container}} @personid={{@person.id}} @personname={{@person.name}}
+            @itemname={{function-helper this this.getitemname item.id}} @containersize={{function-helper this
+            this.getcontainersize item.id}} @itemid={{item.id}} />
+    </div>
+    {{/if}}
+    {{/each}}
+</div>

@@ -1,0 +1,7 @@
+{{page-title "Containers"}}
+<h1>Containers / Kratjes</h1>
+<container class="beerviewpersonlist">
+    {{#each this.model.people as |person|}}
+    <PersonCardContainer @person={{person}} class="col-sm-6" style="padding: 20px;" />
+    {{/each}}
+</container>

@@ -11,6 +11,7 @@ Router.map(function () {
   this.route('main', function () {
     this.route('settings');
     this.route('transactions');
+    this.route('containers');
   });
   this.route('not-found', { path: '/*path' });
 });

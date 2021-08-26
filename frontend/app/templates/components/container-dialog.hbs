@@ -1,0 +1,21 @@
+<MdcButton @style="unelevated" style="height:90px;" {{on "click" this.openDialog}}>
+    <h1>{{@containers}}</h1>
+    <p>{{@itemname}}</p>
+</MdcButton>
+
+
+<MdcDialog @title="{{this.personname}} heeft een kratje {{this.itemname}}" @negativeButton={{hash action="close"
+    label="Cancel" }} @open={{this.open}}>
+    <div style="display: flex; flex-direction: row;">
+        <div type="button" style="width: 100px; height: 100px; background-color: pink; text-align: center;" {{on "click"
+            (fn this.decrement)}}>
+            <MdcIcon @icon="remove_circle" style="padding-top: 20px;" />
+            <p style="color: grey;"> Ingeleverd</p>
+        </div>
+        <div type="button" style="width: 100px; height: 100px; background-color: lightgreen; text-align: center;"
+            {{on "click" (fn this.increment)}}>
+            <MdcIcon @icon="add_circle" style="padding-top: 20px;" />
+            <p style="color: grey;"> Gekocht</p>
+        </div>
+    </div>
+</MdcDialog>
