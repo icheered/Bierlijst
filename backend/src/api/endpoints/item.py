@@ -42,7 +42,7 @@ def add_item(
     return crud.item.create(obj=new_item.dict())
 
 
-@router.put("", response_model=schemas.Item)
+@router.patch("", response_model=schemas.Item)
 def update_item(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -66,7 +66,7 @@ def update_item(
     return crud.item.update(db_obj=current_item, obj_in=item_in)
 
 
-@router.put("/{itemid}", response_model=schemas.Item)
+@router.patch("/{itemid}", response_model=schemas.Item)
 def toggle_item_active(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),

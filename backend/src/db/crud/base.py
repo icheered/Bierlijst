@@ -1,6 +1,7 @@
 from typing import Any
 from uuid import UUID, uuid4
 
+import pymongo
 from src.utils.config import settings
 
 from . import db
@@ -13,11 +14,13 @@ class CRUDBase:
     def get(self, id: UUID):
         return self.table.find_one({"id": str(id)})
 
-    def get_multi(self, query: dict):
-        retl = []
-        for ret in self.table.find(query):
-            retl.append(ret)
-        return retl
+    def get_multi(self, query: dict, limit: int = 100, skip: int = 0):
+        return list(
+            self.table.find(query)
+            .sort([("timestamp", pymongo.DESCENDING)])
+            .skip(skip)
+            .limit(limit)
+        )
 
     def create(self, obj: dict):
         if "id" not in obj:
@@ -40,7 +43,7 @@ class CRUDBase:
             [schema]: Updated model
         """
         self.table.update_one(filter=db_obj, update={"$set": obj_in})
-        return obj_in
+        return self.get(id=db_obj["id"])
 
     def delete(self, query: dict):
         item = self.get(id=query["id"])

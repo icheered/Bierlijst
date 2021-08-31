@@ -6,7 +6,7 @@ export default class MainContainersRoute extends Route {
     @service store;
 
     async model() {
-        console.log('Loaded Beerlist');
+        console.log('Loaded Containers');
         // let people = await this.store.findAll('person')
         // let items = await this.store.findAll('item')
         // console.log(people.objectAt(0).id)

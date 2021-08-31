@@ -1,0 +1,54 @@
+<MdcDataTable @label="Dessert calories">
+    <MdcDataTableHeaderRow>
+        <MdcDataTableHeaderCell>Naam</MdcDataTableHeaderCell>
+        <MdcDataTableHeaderCell>Tijd</MdcDataTableHeaderCell>
+        <MdcDataTableHeaderCell>Item</MdcDataTableHeaderCell>
+        <MdcDataTableHeaderCell>Verandering</MdcDataTableHeaderCell>
+        <MdcDataTableHeaderCell>Actie</MdcDataTableHeaderCell>
+    </MdcDataTableHeaderRow>
+
+    <MdcDataTableContent>
+        {{#each @transactions as |row|}}
+
+
+        {{#if row.is_active}}
+        <MdcDataTableRow>
+            <MdcDataTableCell>{{function-helper this this.getpersonname row.personid}}</MdcDataTableCell>
+            <MdcDataTableCell>{{row.timestamp}}</MdcDataTableCell>
+            <MdcDataTableCell>{{function-helper this this.getitemname row.itemid}}</MdcDataTableCell>
+            {{#if (eq row.change.container -1)}}
+            <MdcDataTableCell>Krat ingeleverd</MdcDataTableCell>
+            {{else if (eq row.change.container 1)}}
+            <MdcDataTableCell>Krat gekocht</MdcDataTableCell>
+            {{else if (eq row.change.consumable -1)}}
+            <MdcDataTableCell>Biertje gedronken</MdcDataTableCell>
+            {{else}}
+            <MdcDataTableCell>WTF?</MdcDataTableCell>
+            {{/if}}
+            <MdcDataTableCell>
+                <MdcIcon @icon="delete" style="color: red;" type="button" {{on "click" (fn this.toggle row.id)}} />
+            </MdcDataTableCell>
+        </MdcDataTableRow>
+        {{else}}
+        <MdcDataTableRow style="text-decoration: line-through;">
+            <MdcDataTableCell>{{function-helper this this.getpersonname row.personid}}</MdcDataTableCell>
+            <MdcDataTableCell>{{row.timestamp}}</MdcDataTableCell>
+            <MdcDataTableCell>{{function-helper this this.getitemname row.itemid}}</MdcDataTableCell>
+            {{#if (eq row.change.container -1)}}
+            <MdcDataTableCell>Krat ingeleverd</MdcDataTableCell>
+            {{else if (eq row.change.container 1)}}
+            <MdcDataTableCell>Krat gekocht</MdcDataTableCell>
+            {{else if (eq row.change.consumable -1)}}
+            <MdcDataTableCell>Biertje gedronken</MdcDataTableCell>
+            {{else}}
+            <MdcDataTableCell>WTF?</MdcDataTableCell>
+            {{/if}}
+            <MdcDataTableCell>
+                <MdcIcon @icon="cached" type="button" {{on "click" (fn this.toggle row.id)}} />
+            </MdcDataTableCell>
+        </MdcDataTableRow>
+        {{/if}}
+
+        {{/each}}
+    </MdcDataTableContent>
+</MdcDataTable>

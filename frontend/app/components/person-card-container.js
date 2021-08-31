@@ -17,10 +17,10 @@ export default class PersonCardContainer extends Component {
     return this.store.peekRecord('item', itemid).container_size;
   }
 
-  setConsumableValue(value) {
-    console.log('Setting consumable value');
-    this.item.consumable = value;
-  }
+  // setConsumableValue(value) {
+  //   console.log('Setting consumable value');
+  //   this.item.consumable = value;
+  // }
 
   showMessage(personname) {
     console.log('Showing message');

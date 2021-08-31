@@ -10,10 +10,10 @@ export default class PersonCardConsumable extends Component {
     return this.store.peekRecord('item', itemid).name;
   }
 
-  setConsumableValue(value) {
-    console.log('Setting consumable value');
-    this.item.consumable = value;
-  }
+  // setConsumableValue(value) {
+  //   console.log('Setting consumable value');
+  //   this.item.consumable = value;
+  // }
 
   showMessage(personname) {
     console.log('Showing message');

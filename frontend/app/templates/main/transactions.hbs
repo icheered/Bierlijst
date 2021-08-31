@@ -1,3 +1,4 @@
 {{page-title "Transactions"}}
-<p>lijst van transactions met toggle buttons</p>
-{{outlet}}
+<container style="padding: 10px; display: flex; align-items: center; justify-content: center;">
+    <TransactionList @transactions={{this.model.transactions}} />
+</container>

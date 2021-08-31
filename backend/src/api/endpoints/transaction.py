@@ -1,6 +1,6 @@
 import time
 from copy import deepcopy
-from typing import Optional
+from typing import List, Optional
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -11,14 +11,25 @@ from src.utils import user_auth
 router = APIRouter()
 
 
-@router.get("", response_model=schemas.Transaction)
+@router.get("/{transactionid}", response_model=schemas.Person)
+def get_transaction(
+    *,
+    current_user: schemas.UserBase = Depends(user_auth.get_current_user),
+    transactionid: str,
+):
+    return crud.transaction.get(id=transactionid)
+
+
+@router.get("", response_model=List[schemas.Transaction])
 def get_transactions(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 20,
 ):
-    return crud.transaction.get_multi(query={"userid": current_user["id"]})
+    return crud.transaction.get_multi(
+        query={"userid": current_user["id"]}, skip=skip, limit=limit
+    )
 
 
 @router.post("", response_model=schemas.Transaction)
@@ -41,7 +52,6 @@ def add_transaction(
 
     new_transaction = schemas.TransactionInDB(
         id=str(uuid4()),
-        timestamp=int(time.time()),
         userid=current_user["id"],
         change=transaction.change,
         personid=transaction.personid,
@@ -61,7 +71,7 @@ def add_transaction(
     return crud.transaction.create(obj=new_transaction)
 
 
-@router.put("", response_model=schemas.Transaction)
+@router.patch("", response_model=schemas.Transaction)
 def update_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -90,13 +100,13 @@ def update_transaction(
     return crud.transaction.update(db_obj=current_transaction, obj_in=transaction_in)
 
 
-@router.put("/{transactionid}", response_model=schemas.Transaction)
+@router.patch("/{transactionid}", response_model=schemas.Transaction)
 def toggle_transaction(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    transactionid: UUID,
+    transactionid: str,
 ):
-    current_transaction = dict(crud.transaction.get(id=str(transactionid)))
+    current_transaction = dict(crud.transaction.get(id=transactionid))
     if not current_transaction:
         raise HTTPException(
             status_code=404,
@@ -157,3 +167,10 @@ def delete_transaction(
 
     query = {"id": str(transaction_id), "userid": current_user["id"]}
     return crud.transaction.delete(query=query)
+
+
+@router.delete("/all")
+def delete_transaction_all(
+    *, current_user: schemas.UserBase = Depends(user_auth.get_current_user)
+):
+    crud.transaction.delete_all()

@@ -1,8 +1,7 @@
-import time
+from time import time
 from typing import Optional
-from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Change(BaseModel):
@@ -11,7 +10,7 @@ class Change(BaseModel):
 
 
 class TransactionBase(BaseModel):
-    timestamp: Optional[int] = int(time.time())
+    timestamp: int = Field(default_factory=time)
     is_active: Optional[bool] = True
     itemid: Optional[str] = None
     personid: Optional[str] = None
@@ -37,7 +36,7 @@ class TransactionUpdate(TransactionBase):
 
 
 class Transaction(TransactionBase):
-    pass
+    id: str
 
 
 class TransactionInDB(TransactionBase):

@@ -11,7 +11,9 @@ router = APIRouter()
 
 @router.get("/{personid}", response_model=schemas.Person)
 def get_person(
-    *, current_user: schemas.UserBase = Depends(user_auth.get_current_user), personid
+    *,
+    current_user: schemas.UserBase = Depends(user_auth.get_current_user),
+    personid: str,
 ):
     return crud.person.get(id=personid)
 
@@ -33,7 +35,7 @@ def add_people(
     return crud.person.add_people(userid=current_user["id"], people=people)
 
 
-@router.put("", response_model=schemas.Person)
+@router.patch("", response_model=schemas.Person)
 def update_person(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
@@ -64,7 +66,7 @@ def update_person(
     return crud.person.update(db_obj=current_person, obj_in=user_in)
 
 
-@router.put("/{personid}/{itemid}", response_model=schemas.Person)
+@router.patch("/{personid}/{itemid}", response_model=schemas.Person)
 def toggle_item(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
