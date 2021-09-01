@@ -1,5 +1,84 @@
 {{page-title "Settings"}}
-<p>Huisnaam wijzigen</p>
-<p>Lijst van person names en kleuren en active sliders</p>
-<p>Items toevoegen/weghalen/wijzigen + active sliders</p>
-{{outlet}}
+<container style="padding: 10px; display: flex; flex-direction: column; align-items: center;">
+    Change account properties
+    <br>
+    <form {{action 'save' on='submit' }}>
+        <div class="form-floating mb-3">
+            <div style="padding: 10px; display: flex; align-items: center; justify-content: center;">
+                <input class="form-control" type="text" value={{this.getfullname}} onchange={{action updateFullname }}>
+                <MdcButton @type="submit" @label="Save"
+                    style="box-shadow: 0 3px 3px rgb(0 0 0 / 0.3); margin-left: 10px;" />
+            </div>
+
+        </div>
+    </form>
+    <br>
+    Change items
+    <br>
+    <MdcDataTable @label="Containers">
+        <MdcDataTableHeaderRow>
+            <MdcDataTableHeaderCell>Naam</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Bier per Krat</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Actie</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Enabled</MdcDataTableHeaderCell>
+
+        </MdcDataTableHeaderRow>
+
+        <MdcDataTableContent>
+            {{#each this.getItems as |row|}}
+
+            <MdcDataTableRow>
+                <MdcDataTableCell>{{row.name}}</MdcDataTableCell>
+                <MdcDataTableCell>{{row.container_size}}</MdcDataTableCell>
+                <MdcDataTableCell>
+                    <MdcIcon @icon="edit" type="button" {{on "click" (fn this.edit row.id)}} />
+                </MdcDataTableCell>
+                <MdcDataTableCell>
+                    <MdcSwitch @checked={{row.is_active}} />
+                </MdcDataTableCell>
+            </MdcDataTableRow>
+
+            {{/each}}
+        </MdcDataTableContent>
+    </MdcDataTable>
+
+    <br>
+    Change people
+    <br>
+    <MdcDataTable @label="Containers">
+        <MdcDataTableHeaderRow>
+            <MdcDataTableHeaderCell>Naam</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Kleur</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Actie</MdcDataTableHeaderCell>
+            <MdcDataTableHeaderCell>Enabled</MdcDataTableHeaderCell>
+            {{#each this.getItems as |row|}}
+            <MdcDataTableHeaderCell>{{row.name}}</MdcDataTableHeaderCell>
+            {{/each}}
+
+        </MdcDataTableHeaderRow>
+
+        <MdcDataTableContent>
+            {{#each this.getPeople as |row|}}
+
+
+            <MdcDataTableRow>
+                <MdcDataTableCell>{{row.name}}</MdcDataTableCell>
+                <MdcDataTableCell style="color: {{row.color}};">{{row.color}}</MdcDataTableCell>
+                <MdcDataTableCell>
+                    <MdcIcon @icon="edit" type="button" {{on "click" (fn this.edit row.id)}} />
+                </MdcDataTableCell>
+                <MdcDataTableCell>
+                    <MdcSwitch @checked={{row.is_active}} />
+                </MdcDataTableCell>
+                {{#each row.balance as |item|}}
+                <MdcDataTableCell>
+                    <MdcSwitch @checked={{item.is_active}} />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </MdcDataTableCell>
+                {{/each}}
+            </MdcDataTableRow>
+
+            {{/each}}
+        </MdcDataTableContent>
+    </MdcDataTable>
+</container>

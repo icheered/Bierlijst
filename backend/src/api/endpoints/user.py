@@ -55,7 +55,7 @@ def read_user_me(
     return [current_user]
 
 
-@router.put("/me", response_model=schemas.User)
+@router.patch("/me/{userid}", response_model=schemas.User)
 def update_user_me(
     *,
     password: str = Body(None),
@@ -63,6 +63,7 @@ def update_user_me(
     full_name: str = Body(None),
     email: EmailStr = Body(None),
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
+    userid: str,
 ) -> Any:
     """
     Update own user.

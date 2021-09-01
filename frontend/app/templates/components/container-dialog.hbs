@@ -8,12 +8,12 @@
     label="Cancel" }} @open={{this.open}}>
     <div style="display: flex; flex-direction: row;">
         <div type="button" style="width: 100px; height: 100px; background-color: pink; text-align: center;" {{on "click"
-            (fn this.decrement)}}>
+            this.decrement}}>
             <MdcIcon @icon="remove_circle" style="padding-top: 20px;" />
             <p style="color: grey;"> Ingeleverd</p>
         </div>
         <div type="button" style="width: 100px; height: 100px; background-color: lightgreen; text-align: center;"
-            {{on "click" (fn this.increment)}}>
+            {{on "click" this.increment}}>
             <MdcIcon @icon="add_circle" style="padding-top: 20px;" />
             <p style="color: grey;"> Gekocht</p>
         </div>

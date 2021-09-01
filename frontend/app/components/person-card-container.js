@@ -8,7 +8,6 @@ export default class PersonCardContainer extends Component {
   @service store;
   @service snackbar;
 
-
   getitemname(itemid) {
     return this.store.peekRecord('item', itemid).name;
   }
