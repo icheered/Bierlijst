@@ -1,7 +1,9 @@
 {{page-title "Containers"}}
 <h1>Containers / Kratjes</h1>
-<container class="beerviewpersonlist">
+<container class="row">
     {{#each this.model.people as |person|}}
+    {{#if person.is_active}}
     <PersonCardContainer @person={{person}} class="col-sm-6" style="padding: 20px;" />
+    {{/if}}
     {{/each}}
 </container>

@@ -1,0 +1,22 @@
+<MdcIcon @icon="edit" type="button" {{on "click" (fn this.openDialog)}} />
+
+
+<MdcDialog @title="Edit the person" @negativeButton={{hash action="close" label="Cancel" }} @positiveButton={{hash
+    action="save" label="Save" closing=this.save}} @open={{this.open}}>
+    <form {{action 'save' on='submit' }}>
+        <div class="form-floating mb-3">
+            <div style="padding: 10px;">
+                <label>Person name</label>
+                <input class="form-control" type="text" placeholer="Name" value={{@person.name}} onchange={{action
+                    updateName }}>
+
+                <label>Person color</label><br>
+                <input type="color" value={{@person.color}} onchange={{action updateColor }}><br>
+                <MdcButton @type="submit" @label="Save" />
+            </div>
+
+        </div>
+    </form>
+
+
+</MdcDialog>

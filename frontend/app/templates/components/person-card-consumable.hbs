@@ -1,11 +1,12 @@
 {{#if (function-helper this this.hasSingleActiveItem @person.id)}}
 <div type="button" {{on "click" (fn this.decrement @person.id (function-helper this this.getSingleActiveItem @person.id)
-    @person.name)}} style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row;">
-    <p class="col align-self-center">Person {{@person.name}}</p>
+    @person.name)}}
+    style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row; border-radius: 5px;">
+    <p class="col align-self-center">{{@person.name}}</p>
     {{#each @person.balance as |item|}}
     {{#if item.is_active}}
     <div style="padding: 5px;">
-        <button type="button">
+        <button type="button" style="border-radius: 5px;">
             <h1>{{item.consumable}}</h1>
             <p>{{function-helper this this.getitemname item.id}}</p>
         </button>
@@ -15,12 +16,13 @@
 </div>
 
 {{else}}
-<div style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row;">
-    <p class="col align-self-center">Person {{@person.name}}</p>
+<div style="background-color:{{@person.color}}; padding: 5px; display: flex; flex-direction: row; border-radius: 5px;">
+    <p class="col align-self-center">{{@person.name}}</p>
     {{#each @person.balance as |item|}}
     {{#if item.is_active}}
-    <div style="padding: 5px;">
-        <button type="button" {{on "click" (fn this.decrement @person.id item.id @person.name)}}>
+    <div style="padding: 5px; ">
+        <button type="button" style="border-radius: 5px;" {{on "click" (fn this.decrement @person.id item.id
+            @person.name)}}>
             <h1>{{item.consumable}}</h1>
             <p>{{function-helper this this.getitemname item.id}}</p>
         </button>

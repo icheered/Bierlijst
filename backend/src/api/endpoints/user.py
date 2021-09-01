@@ -63,7 +63,6 @@ def update_user_me(
     full_name: str = Body(None),
     email: EmailStr = Body(None),
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    userid: str,
 ) -> Any:
     """
     Update own user.

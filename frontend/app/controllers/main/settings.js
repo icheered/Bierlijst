@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 export default class SettingsController extends Controller {
     @service store;
@@ -26,7 +27,6 @@ export default class SettingsController extends Controller {
 
     @action
     async save() {
-        console.log();
         if (this.fullname == undefined) {
             this.snackbar.show({
                 message: 'Name was not changed',
@@ -38,9 +38,9 @@ export default class SettingsController extends Controller {
                 dismiss: true,
             });
             console.log('Saving new name: ' + this.fullname);
-            let transaction = this.store.peekAll('account').objectAt(0);
-            transaction.full_name = this.fullname;
-            await transaction.save()
+            let account = this.store.peekAll('account').objectAt(0);
+            account.full_name = this.fullname;
+            await account.save()
         }
     }
 
@@ -51,5 +51,12 @@ export default class SettingsController extends Controller {
     @action
     edit(itemid) {
         console.log("Edit: " + itemid)
+    }
+
+    @action
+    async toggleActive(type, id) {
+        console.log("Toggling " + type + " with ID " + id)
+        let obj = this.store.peekRecord(type, id);
+        await obj.save();
     }
 }

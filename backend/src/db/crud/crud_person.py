@@ -8,27 +8,22 @@ from src.utils import misc
 
 
 class CRUDPerson(CRUDBase):
-    def add_people(self, userid: UUID, people: List[schemas.PersonCreate]):
+    def add_person(self, userid: UUID, person: schemas.PersonCreate, balance: list):
         # For each person, generate UUID, set USERID, generate color
-        retlist = []
-        for person in people:
-            db_obj = schemas.PersonInDB(
-                id=str(uuid4()),
-                userid=userid,
-                name=person.name,
-                color=misc.get_random_color_hex(),
-            )
-            ret = super().create(obj=db_obj.dict())
-            retlist.append(ret)
-        return retlist
+        db_obj = schemas.PersonInDB(
+            id=str(uuid4()),
+            userid=userid,
+            name=person.name,
+            color=misc.get_random_color_hex(),
+            balance=balance,
+        )
+        return super().create(obj=db_obj.dict())
 
-    def delete_people(self, userid: UUID, people: List[UUID]):
-        retlist = []
-        for personID in people:
-            retlist.append(super().get(str(personID)))
-            query = {"userid": str(userid), "id": str(personID)}
-            super().delete(query)
-        return retlist
+    def delete_person(self, userid: UUID, personid: UUID):
+        ret = super().get(str(personid))
+        query = {"userid": str(userid), "id": str(personid)}
+        super().delete(query)
+        return ret
 
     def apply_transaction(self, user: dict, transaction: dict):
         user_items = [val["id"] for val in user["balance"]]

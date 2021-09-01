@@ -26,13 +26,26 @@ def get_people(
     return crud.person.get_multi({"userid": current_user["id"]})
 
 
-@router.post("", response_model=List[schemas.Person])
-def add_people(
+@router.post("", response_model=schemas.Person)
+def add_person(
     *,
-    people: List[schemas.PersonCreate],
+    person: schemas.PersonCreate,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
 ):
-    return crud.person.add_people(userid=current_user["id"], people=people)
+    items = crud.item.get_multi({"userid": current_user["id"]})
+    balance = []
+    for item in items:
+        balance.append(
+            {
+                "id": item["id"],
+                "container": 0,
+                "consumable": 0,
+                "is_active": item["is_active"],
+            }
+        )
+    return crud.person.add_person(
+        userid=current_user["id"], person=person, balance=balance
+    )
 
 
 @router.patch("", response_model=schemas.Person)
@@ -66,6 +79,23 @@ def update_person(
     return crud.person.update(db_obj=current_person, obj_in=user_in)
 
 
+@router.patch("/{personid}", response_model=schemas.Person)
+def toggle_person_active(
+    *,
+    current_user: schemas.UserBase = Depends(user_auth.get_current_user),
+    personid: UUID,
+):
+    current_person = crud.person.get(id=personid)
+    if not current_person:
+        raise HTTPException(
+            status_code=404,
+            detail="This person could not be found",
+        )
+    person_in = {"id": str(personid), "userid": current_user["id"]}
+    person_in["is_active"] = not current_person["is_active"]
+    return crud.person.update(db_obj=current_person, obj_in=person_in)
+
+
 @router.patch("/{personid}/{itemid}", response_model=schemas.Person)
 def toggle_item(
     *,
@@ -89,7 +119,6 @@ def toggle_item(
         )
     for item in current_person["balance"]:
         if item["id"] == itemid:
-            print("here")
             crud.person.set_item_active(
                 itemid=itemid,
                 userid=current_user["id"],
@@ -99,10 +128,10 @@ def toggle_item(
     return crud.person.get(id=personid)
 
 
-@router.delete("", response_model=List[schemas.Person])
-def delete_people(
+@router.delete("", response_model=schemas.Person)
+def delete_person(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    people: List[UUID],
+    person: UUID,
 ):
-    return crud.person.delete_people(userid=current_user["id"], people=people)
+    return crud.person.delete_people(userid=current_user["id"], personid=person)

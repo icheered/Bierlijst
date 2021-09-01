@@ -13,6 +13,12 @@
         </div>
     </form>
     <br>
+
+
+
+
+
+
     Change items
     <br>
     <MdcDataTable @label="Containers">
@@ -41,8 +47,21 @@
             {{/each}}
         </MdcDataTableContent>
     </MdcDataTable>
-
     <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Change people
     <br>
     <MdcDataTable @label="Containers">
@@ -65,10 +84,10 @@
                 <MdcDataTableCell>{{row.name}}</MdcDataTableCell>
                 <MdcDataTableCell style="color: {{row.color}};">{{row.color}}</MdcDataTableCell>
                 <MdcDataTableCell>
-                    <MdcIcon @icon="edit" type="button" {{on "click" (fn this.edit row.id)}} />
+                    <EditpersonDialog @person={{row}} />
                 </MdcDataTableCell>
                 <MdcDataTableCell>
-                    <MdcSwitch @checked={{row.is_active}} />
+                    <MdcSwitch @checked={{row.is_active}} onchange={{action toggleActive "person" row.id }} />
                 </MdcDataTableCell>
                 {{#each row.balance as |item|}}
                 <MdcDataTableCell>
@@ -81,4 +100,5 @@
             {{/each}}
         </MdcDataTableContent>
     </MdcDataTable>
+    <CreatepersonDialog />
 </container>

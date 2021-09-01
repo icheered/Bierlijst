@@ -79,6 +79,7 @@ def toggle_item_active(
             detail="This item could not be found",
         )
     if current_item["is_active"]:
+        # If item is disabled, disable the item on all persons
         crud.person.set_item_active(
             itemid=str(itemid), userid=current_user["id"], is_active=False
         )
