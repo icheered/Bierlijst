@@ -154,5 +154,8 @@
   "ember": {
     "edition": "octane"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ember-cli-dotenv": "^3.1.0"
+  }
 }

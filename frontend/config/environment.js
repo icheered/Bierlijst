@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config({ path: '../.env' })
 
 module.exports = function (environment) {
   let ENV = {
@@ -14,15 +15,14 @@ module.exports = function (environment) {
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
         Date: false,
-      },
+      }
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    //apiHost: 'http://192.168.5.169:8001',
-    apiHost: 'http://localhost:8001',
+    //apiHost: 'http://localhost:8001',
   };
 
   if (environment === 'development') {
@@ -46,8 +46,13 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
+
     // here you can enable a production-specific feature
   }
+
+  ENV.BACKEND_ADDRESS = process.env.BACKEND_ADDRESS;
+  ENV.BACKEND_API_PATH = process.env.BACKEND_API_PATH;
+
 
   return ENV;
 };

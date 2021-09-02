@@ -1,13 +1,14 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { inject as service } from '@ember/service';
-import { underscore } from '@ember/string';
+import config from '../config/environment';
+
 
 export default class ApplicationAdapter extends JSONAPIAdapter {
   @service session;
   @service router;
 
-  host = 'http://localhost:8001';
-  namespace = 'api';
+  host = config.BACKEND_ADDRESS
+  namespace = config.BACKEND_API_PATH
 
   get headers() {
     let headers = {};

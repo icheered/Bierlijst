@@ -7,4 +7,15 @@ services:
         env_file:
             - .env
         ports:
-        - "7999:27017"
+            - "27017:27017"
+    backend:
+        container_name: bierlijst_backend
+        depends_on:
+            - db
+        env_file:
+            - .env
+        build:
+            context: '.'
+            dockerfile: './backend/backend.dockerfile'
+        ports:
+            - "8001:8001"
