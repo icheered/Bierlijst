@@ -1,8 +1,8 @@
 import Service, { inject as service } from '@ember/service';
 
-export default Service.extend({
-  session: service('session'),
-  store: service(),
+export default class SessionAccountService extends Service {
+  @service session
+  @service store
 
   async loadCurrentUser() {
     console.log('Loading current user');
@@ -10,5 +10,5 @@ export default Service.extend({
     let account = userprofile.objectAt(0);
     this.set('account', account);
     return account;
-  },
-});
+  }
+}
