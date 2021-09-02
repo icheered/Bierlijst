@@ -53,6 +53,5 @@ module.exports = function (environment) {
   ENV.BACKEND_ADDRESS = process.env.BACKEND_ADDRESS;
   ENV.BACKEND_API_PATH = process.env.BACKEND_API_PATH;
 
-
   return ENV;
 };
