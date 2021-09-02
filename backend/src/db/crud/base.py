@@ -50,5 +50,8 @@ class CRUDBase:
         self.table.delete_one(query)
         return item
 
+    def delete_many(self, query: dict):
+        self.table.delete_many(query)
+
     def delete_all(self):
         return self.table.delete_many({})

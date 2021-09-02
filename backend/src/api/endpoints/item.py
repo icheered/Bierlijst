@@ -101,6 +101,8 @@ def delete_item(
             status_code=404,
             detail="This item could not be found",
         )
+
+    # Delete item from all persons, delete all transactions with that item, delete item
     crud.person.delete_item(itemid=str(itemid), userid=current_user["id"])
-    query = {"id": str(itemid), "userid": current_user["id"]}
-    return crud.item.delete(query=query)
+    crud.transaction.delete_many({"userid": current_user["id"], "itemid": str(itemid)})
+    return crud.item.delete(query={"id": str(itemid), "userid": current_user["id"]})

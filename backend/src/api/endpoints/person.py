@@ -143,4 +143,13 @@ def delete_person(
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
     personID: UUID,
 ):
+    current_person = crud.person.get(id=personID)
+    if not current_person:
+        raise HTTPException(
+            status_code=404,
+            detail="This person could not be found",
+        )
+    crud.transaction.delete_many(
+        query={"userid": current_user["id"], "personid": str(personID)}
+    )
     return crud.person.delete_person(userid=current_user["id"], personid=personID)
