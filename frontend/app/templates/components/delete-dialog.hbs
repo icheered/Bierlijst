@@ -1,0 +1,7 @@
+<MdcIcon @icon="delete" style="color: red;" type="button" {{on "click" (fn this.openDialog)}} />
+
+
+<MdcDialog @title="Are you sure?" @negativeButton={{hash action="close" label="Cancel" }} @positiveButton={{hash
+    action="delete" label="Delete" closing=this.delete}} @open={{this.open}}>
+    Do you really want to delete {{@type}} {{@name}}
+</MdcDialog>

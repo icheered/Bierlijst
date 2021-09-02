@@ -58,5 +58,22 @@ export default class SettingsController extends Controller {
         console.log("Toggling " + type + " with ID " + id)
         let obj = this.store.peekRecord(type, id);
         await obj.save();
+        if (type == "item") {
+            await this.store.findAll("person")
+        }
+    }
+
+    @action
+    async toggleItemActiveForPerson(personid, itemid) {
+        console.log("For person " + personid + " toggling item " + itemid)
+        let obj = this.store.peekRecord("person", personid)
+        obj.save({
+            adapterOptions: {
+                itemID: itemid,
+            }
+        })
+        await this.store.findAll("item")
     }
 }
+
+

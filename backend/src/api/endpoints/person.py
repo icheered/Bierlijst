@@ -117,21 +117,30 @@ def toggle_item(
             status_code=404,
             detail="This item could not be found",
         )
+
     for item in current_person["balance"]:
         if item["id"] == itemid:
+
+            # If a user enabled a disabled item, enable the item
+            if not item["is_active"] and not current_item["is_active"]:
+                item_in = {"id": str(itemid), "userid": current_user["id"]}
+                item_in["is_active"] = not current_item["is_active"]
+                crud.item.update(db_obj=current_item, obj_in=item_in)
+
             crud.person.set_item_active(
                 itemid=itemid,
                 userid=current_user["id"],
                 is_active=not item["is_active"],
                 personid=personid,
             )
+
     return crud.person.get(id=personid)
 
 
-@router.delete("", response_model=schemas.Person)
+@router.delete("/{personID}", response_model=schemas.Person)
 def delete_person(
     *,
     current_user: schemas.UserBase = Depends(user_auth.get_current_user),
-    person: UUID,
+    personID: UUID,
 ):
-    return crud.person.delete_people(userid=current_user["id"], personid=person)
+    return crud.person.delete_person(userid=current_user["id"], personid=personID)

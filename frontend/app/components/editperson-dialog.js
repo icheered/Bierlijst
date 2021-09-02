@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-export default class ContainerDialog extends Component {
+export default class EditpersonDialog extends Component {
   @service store;
   @service snackbar;
   @tracked open;
@@ -15,6 +15,10 @@ export default class ContainerDialog extends Component {
   }
   @action
   save() {
+    if (this.personName == undefined && this.personColor == undefined) {
+      console.log("No values were updated, not saving")
+      return
+    }
     this.personName ? this.personName = this.personName : this.personName = this.person.name
     this.personColor ? this.personColor = this.personColor : this.personColor = this.person.color
     console.log('Saving');

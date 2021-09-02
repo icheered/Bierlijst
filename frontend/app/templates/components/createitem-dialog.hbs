@@ -1,0 +1,20 @@
+<button type="button" {{on "click" (fn this.openDialog)}}>Add new item</button>
+
+<MdcDialog @title="Add a new item" @negativeButton={{hash action="close" label="Cancel" }} @positiveButton={{hash
+    action="save" label="Save" closing=this.save}} @open={{this.open}}>
+    <form {{action 'save' on='submit' }}>
+        <div class="form-floating mb-3">
+            <div style="padding: 10px;">
+                <label>Item name</label>
+                <input class="form-control" type="text" placeholer="Name" onchange={{action updateName }}>
+
+                <label>Container size</label>
+                <input class="form-control" type="text" value="24" placeholer="Name" onchange={{action
+                    updateContainersize }}>
+            </div>
+
+        </div>
+    </form>
+
+
+</MdcDialog>

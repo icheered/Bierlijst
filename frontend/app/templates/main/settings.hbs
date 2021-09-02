@@ -37,16 +37,21 @@
                 <MdcDataTableCell>{{row.name}}</MdcDataTableCell>
                 <MdcDataTableCell>{{row.container_size}}</MdcDataTableCell>
                 <MdcDataTableCell>
-                    <MdcIcon @icon="edit" type="button" {{on "click" (fn this.edit row.id)}} />
+                    <div style="display: flex;">
+                        <EdititemDialog @item={{row}} />
+                        <DeleteDialog @name={{row.name}} @type="item" @id={{row.id}} />
+                    </div>
+
                 </MdcDataTableCell>
                 <MdcDataTableCell>
-                    <MdcSwitch @checked={{row.is_active}} />
+                    <MdcSwitch @checked={{row.is_active}} onchange={{action toggleActive "item" row.id }} />
                 </MdcDataTableCell>
             </MdcDataTableRow>
 
             {{/each}}
         </MdcDataTableContent>
     </MdcDataTable>
+    <CreateitemDialog />
     <br>
 
 
@@ -84,14 +89,18 @@
                 <MdcDataTableCell>{{row.name}}</MdcDataTableCell>
                 <MdcDataTableCell style="color: {{row.color}};">{{row.color}}</MdcDataTableCell>
                 <MdcDataTableCell>
-                    <EditpersonDialog @person={{row}} />
+                    <div style="display: flex;">
+                        <EditpersonDialog @person={{row}} />
+                        <DeleteDialog @name={{row.name}} @type="person" @id={{row.id}} />
+                    </div>
                 </MdcDataTableCell>
                 <MdcDataTableCell>
                     <MdcSwitch @checked={{row.is_active}} onchange={{action toggleActive "person" row.id }} />
                 </MdcDataTableCell>
                 {{#each row.balance as |item|}}
                 <MdcDataTableCell>
-                    <MdcSwitch @checked={{item.is_active}} />
+                    <MdcSwitch @checked={{item.is_active}} onchange={{action toggleItemActiveForPerson row.id item.id
+                        }} />
                     &nbsp;&nbsp;&nbsp;&nbsp;
                 </MdcDataTableCell>
                 {{/each}}
