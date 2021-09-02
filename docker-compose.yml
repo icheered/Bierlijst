@@ -6,8 +6,5 @@ services:
         restart: always
         env_file:
             - .env
-        # environment:
-        #     MONGO_USERNAME: administrator
-        #     MONGO_PASSWORD: e5a414c187691bc733e62b0d12e9c431baa60cb703f5e39ae412b3ac9a15790c
         ports:
         - "7999:27017"
