@@ -4,7 +4,7 @@ require('dotenv').config({ path: '../.env' })
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'frontend',
-    environment,
+    environment: 'development',
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {

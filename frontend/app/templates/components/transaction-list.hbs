@@ -14,7 +14,7 @@
         {{#if row.is_active}}
         <MdcDataTableRow>
             <MdcDataTableCell>{{function-helper this this.getpersonname row.personid}}</MdcDataTableCell>
-            <MdcDataTableCell>{{row.timestamp}}</MdcDataTableCell>
+            <MdcDataTableCell>{{function-helper this this.getTimeFromTimestamp row.timestamp}} </MdcDataTableCell>
             <MdcDataTableCell>{{function-helper this this.getitemname row.itemid}}</MdcDataTableCell>
             {{#if (eq row.change.container -1)}}
             <MdcDataTableCell>Krat ingeleverd</MdcDataTableCell>
@@ -32,7 +32,7 @@
         {{else}}
         <MdcDataTableRow style="text-decoration: line-through;">
             <MdcDataTableCell>{{function-helper this this.getpersonname row.personid}}</MdcDataTableCell>
-            <MdcDataTableCell>{{row.timestamp}}</MdcDataTableCell>
+            <MdcDataTableCell>{{function-helper this this.getTimeFromTimestamp row.timestamp}}</MdcDataTableCell>
             <MdcDataTableCell>{{function-helper this this.getitemname row.itemid}}</MdcDataTableCell>
             {{#if (eq row.change.container -1)}}
             <MdcDataTableCell>Krat ingeleverd</MdcDataTableCell>

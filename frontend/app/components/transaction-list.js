@@ -19,6 +19,20 @@ export default class TransactionList extends Component {
     });
   }
 
+  getTimeFromTimestamp(timestamp) {
+    let date = new Date(timestamp * 1000)
+    let minutes = (String(date.getMinutes()).length == 1 ? "0" + String(date.getMinutes()) : String(date.getMinutes()))
+    let seconds = (String(date.getSeconds()).length == 1 ? "0" + String(date.getSeconds()) : String(date.getSeconds()))
+
+    let datetime = date.getDate() +
+      "/" + (date.getMonth() + 1) +
+      "/" + date.getFullYear() +
+      " " + date.getHours() +
+      ":" + minutes +
+      ":" + seconds;
+    return datetime
+  }
+
   @action
   async toggle(transactionsid) {
     console.log('Toggling ' + transactionsid);
