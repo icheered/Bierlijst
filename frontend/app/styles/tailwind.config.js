@@ -7,7 +7,7 @@ module.exports = {
       boxShadow: (theme) => ({
         c: `0 -24px 0 0 ${theme('colors.red.400')}`,
       }),
-    },
+    }
   },
   variants: {
     extend: {},
