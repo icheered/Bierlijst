@@ -17,6 +17,20 @@
 	box-shadow: 0 1.5rem 0 0 #374151;
 }
 
+.buttonCutout::after {
+	content: "";
+	position: absolute;
+
+	
+	bottom: 45px;
+	height: 6rem;
+	left: 50%;
+	margin-left: -3rem;
+	width: 6rem;
+	border-radius: 100%;
+	box-shadow: 0 1.5rem 0 10px blue;
+}
+
 .invertedCornerTopLeft::before {
 	content: "";
 	position: absolute;

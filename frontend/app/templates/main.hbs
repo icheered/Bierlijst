@@ -1,7 +1,7 @@
 {{page-title "Main"}}
 
 <!-- This is an example component -->
-<div class="w-full h-screen flex justify-center bg-yellow-100">
+<div class="w-full h-screen flex justify-center ">
     <div class="fixed top-0">
         <div class="flex-shrink px-10 py-2 rounded-b-3xl bg-gray-700  invertedCornerTopLeft invertedCornerTopRight">
             <h1 class=" text-white">{{this.getfullname}}</h1>
@@ -21,7 +21,7 @@
                     <img src="assets/icons/history.svg" class="h-7">
                 </li>
                 <div
-                    class="rounded-full bg-gray-700 h-22 w-22 flex items-center justify-center -mt-14 border-8 border-yellow-100  hover:bg-gray-500">
+                    class="rounded-full bg-gray-700 flex items-center justify-center -mt-14 border-8 border-yellow-100  hover:bg-gray-500">
                     <li class="p-4 ">
                         <img src="assets/icons/beer.svg" class="h-10 ">
                     </li>
@@ -36,7 +36,12 @@
         </nav>
     </div>
 
+    <div class="h-full w-full  bg-yellow-100">
+        <div class="bg-yellow-100 pb-32 pt-20 w-full items-center justify-center flex flex-column">
+            {{outlet}}
+        </div>
 
+    </div>
 </div>
 
 {{!-- {{outlet}} --}}
