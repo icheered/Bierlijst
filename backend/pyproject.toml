@@ -6,7 +6,7 @@ authors = ["ICheered <tjeerd992@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.67.0"
+fastapi = "^0.109.1"
 uvicorn = "^0.14.0"
 pydantic = "^1.8.2"
 tinydb = "^4.5.1"
